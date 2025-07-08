@@ -46,28 +46,28 @@ const KisanAllyDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-earth">
+    <div className="h-full bg-gradient-earth flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-primary text-white p-6 rounded-b-3xl shadow-soft">
-        <div className="flex justify-between items-center mb-4">
+      <div className="bg-gradient-primary text-white p-4 rounded-b-2xl shadow-soft flex-shrink-0">
+        <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold">Good morning, Rohan 👋</h1>
-            <p className="text-primary-foreground/80">Ready for another productive day?</p>
+            <h1 className="text-xl font-semibold">Good morning, Rohan 👋</h1>
+            <p className="text-primary-foreground/80 text-sm">Ready for another productive day?</p>
           </div>
-          <div className="text-right">
-            <div className="flex items-center gap-2 text-sm">
-              <Thermometer className="h-4 w-4" />
+          <div className="text-right text-sm">
+            <div className="flex items-center gap-1">
+              <Thermometer className="h-3 w-3" />
               <span>28°C</span>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-              <CloudRain className="h-4 w-4" />
-              <span>60% chance</span>
+            <div className="flex items-center gap-1">
+              <CloudRain className="h-3 w-3" />
+              <span>60%</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="p-6 space-y-6">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {/* Voice Input Section */}
         <div className="text-center">
           <Button
@@ -76,29 +76,29 @@ const KisanAllyDashboard = () => {
             onClick={handleVoiceInput}
             className={`mx-auto ${isListening ? 'animate-pulse' : ''}`}
           >
-            <Mic className="h-8 w-8" />
+            <Mic className="h-6 w-6" />
           </Button>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mt-2 text-muted-foreground text-sm">
             {isListening ? "Listening..." : "Ask Ally anything..."}
           </p>
         </div>
 
         {/* Quick Actions */}
         <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Wheat className="h-5 w-5 text-primary" />
+          <h2 className="text-lg font-medium mb-3 flex items-center gap-2">
+            <Wheat className="h-4 w-4 text-primary" />
             Quick Actions
           </h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             {quickActions.map((action, index) => (
-              <Card key={index} className="p-4 bg-gradient-card hover:shadow-card transition-smooth cursor-pointer">
+              <Card key={index} className="p-3 bg-gradient-card hover:shadow-card transition-smooth cursor-pointer">
                 <div className="flex flex-col items-center text-center space-y-2">
-                  <Button variant={action.color as any} size="icon" className="rounded-full">
-                    <action.icon className="h-5 w-5" />
+                  <Button variant={action.color as any} size="icon" className="rounded-full h-8 w-8">
+                    <action.icon className="h-4 w-4" />
                   </Button>
                   <div>
-                    <p className="font-medium">{action.label}</p>
-                    <p className="text-sm text-muted-foreground">{action.subtitle}</p>
+                    <p className="font-medium text-sm">{action.label}</p>
+                    <p className="text-xs text-muted-foreground">{action.subtitle}</p>
                   </div>
                 </div>
               </Card>
@@ -108,21 +108,22 @@ const KisanAllyDashboard = () => {
 
         {/* Live Alerts */}
         <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Bell className="h-5 w-5 text-primary" />
+          <h2 className="text-lg font-medium mb-3 flex items-center gap-2">
+            <Bell className="h-4 w-4 text-primary" />
             Live Alerts
           </h2>
-          <div className="space-y-3">
-            {alerts.map((alert, index) => (
-              <Card key={index} className="p-4 bg-gradient-card border-l-4 border-l-primary">
+          <div className="space-y-2">
+            {alerts.slice(0, 2).map((alert, index) => (
+              <Card key={index} className="p-3 bg-gradient-card border-l-4 border-l-primary">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <p className="font-medium text-foreground">{alert.message}</p>
-                    <p className="text-sm text-muted-foreground mt-1">{alert.time}</p>
+                    <p className="font-medium text-foreground text-sm">{alert.message}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{alert.time}</p>
                   </div>
                   <Badge 
                     variant={alert.severity === 'high' ? 'destructive' : 
                            alert.severity === 'medium' ? 'default' : 'secondary'}
+                    className="text-xs"
                   >
                     {alert.severity}
                   </Badge>
@@ -134,21 +135,21 @@ const KisanAllyDashboard = () => {
 
         {/* Community Pulse */}
         <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Users className="h-5 w-5 text-primary" />
+          <h2 className="text-lg font-medium mb-3 flex items-center gap-2">
+            <Users className="h-4 w-4 text-primary" />
             Community Pulse
           </h2>
-          <div className="space-y-3">
-            {communityActivity.map((activity, index) => (
-              <Card key={index} className="p-4 bg-gradient-card">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-primary-foreground text-sm font-medium">
+          <div className="space-y-2">
+            {communityActivity.slice(0, 2).map((activity, index) => (
+              <Card key={index} className="p-3 bg-gradient-card">
+                <div className="flex items-center space-x-2">
+                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                    <span className="text-primary-foreground text-xs font-medium">
                       {activity.farmer.split(' ')[0][0]}
                     </span>
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm">
+                    <p className="text-xs">
                       <span className="font-medium">{activity.farmer}</span>
                       {' '}{activity.action}{' '}
                       <span className="text-primary font-medium">{activity.crop}</span>
@@ -159,27 +160,6 @@ const KisanAllyDashboard = () => {
               </Card>
             ))}
           </div>
-        </div>
-
-        {/* Feature Showcase */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="p-4 bg-gradient-card">
-            <img src={farmerTech} alt="Farmer with technology" className="w-full h-32 object-cover rounded-lg mb-3" />
-            <h3 className="font-semibold mb-2">Voice-First Experience</h3>
-            <p className="text-sm text-muted-foreground">Interact naturally with your digital farming assistant</p>
-          </Card>
-          
-          <Card className="p-4 bg-gradient-card">
-            <img src={cropHealth} alt="Crop health analysis" className="w-full h-32 object-cover rounded-lg mb-3" />
-            <h3 className="font-semibold mb-2">Smart Diagnostics</h3>
-            <p className="text-sm text-muted-foreground">AI-powered crop health analysis and solutions</p>
-          </Card>
-          
-          <Card className="p-4 bg-gradient-card">
-            <img src={farmHero} alt="Farm landscape" className="w-full h-32 object-cover rounded-lg mb-3" />
-            <h3 className="font-semibold mb-2">Community Connected</h3>
-            <p className="text-sm text-muted-foreground">Stay connected with your farming community</p>
-          </Card>
         </div>
       </div>
     </div>

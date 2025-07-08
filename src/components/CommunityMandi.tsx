@@ -76,27 +76,27 @@ const CommunityMandi = () => {
   const selectedCropData = crops.find(c => c.id === selectedCrop);
 
   return (
-    <div className="min-h-screen bg-gradient-earth p-6">
-      <div className="max-w-4xl mx-auto">
+    <div className="h-full bg-gradient-earth flex flex-col overflow-hidden">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground mb-2">Community Mandi</h1>
-          <p className="text-muted-foreground">Market prices and logistics coordination</p>
+        <div className="text-center">
+          <h1 className="text-xl font-semibold text-foreground">Community Mandi</h1>
+          <p className="text-muted-foreground text-sm">Market prices and logistics coordination</p>
         </div>
 
         {/* Crop Selection */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-3 text-foreground">Select Your Crop</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div>
+          <h2 className="text-base font-medium mb-2 text-foreground">Select Your Crop</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {crops.map((crop) => (
               <Button
                 key={crop.id}
                 variant={selectedCrop === crop.id ? "default" : "outline"}
-                className="p-4 h-auto flex-col"
+                className="p-2 h-auto flex-col text-xs"
                 onClick={() => setSelectedCrop(crop.id)}
               >
                 <span className="font-medium">{crop.name}</span>
-                <span className="text-sm">₹{crop.price}/{crop.unit}</span>
+                <span className="text-xs">₹{crop.price}/{crop.unit}</span>
               </Button>
             ))}
           </div>
@@ -104,148 +104,114 @@ const CommunityMandi = () => {
 
         {/* Price Dashboard */}
         {selectedCropData && (
-          <Card className="mb-6 p-6 bg-gradient-card">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="p-4 bg-gradient-card">
+            <div className="grid grid-cols-3 gap-4 mb-3">
               <div className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <IndianRupee className="h-8 w-8 text-primary" />
-                  <span className="text-3xl font-bold text-foreground">
+                <div className="flex items-center justify-center gap-1 mb-1">
+                  <IndianRupee className="h-6 w-6 text-primary" />
+                  <span className="text-2xl font-bold text-foreground">
                     {selectedCropData.price}
                   </span>
-                  <span className="text-muted-foreground">/{selectedCropData.unit}</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Current Price</p>
+                <p className="text-xs text-muted-foreground">Current Price</p>
               </div>
               
               <div className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
+                <div className="flex items-center justify-center gap-1 mb-1">
                   {selectedCropData.trend === "up" ? (
-                    <TrendingUp className="h-6 w-6 text-green-500" />
+                    <TrendingUp className="h-5 w-5 text-green-500" />
                   ) : (
-                    <TrendingDown className="h-6 w-6 text-red-500" />
+                    <TrendingDown className="h-5 w-5 text-red-500" />
                   )}
-                  <span className={`text-2xl font-bold ${
+                  <span className={`text-xl font-bold ${
                     selectedCropData.trend === "up" ? "text-green-500" : "text-red-500"
                   }`}>
                     {selectedCropData.change > 0 ? "+" : ""}{selectedCropData.change}%
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground">24h Change</p>
+                <p className="text-xs text-muted-foreground">24h Change</p>
               </div>
               
               <div className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <Clock className="h-6 w-6 text-primary" />
-                  <Badge variant="outline">Market Open</Badge>
+                <div className="flex items-center justify-center gap-1 mb-1">
+                  <Clock className="h-5 w-5 text-primary" />
+                  <Badge variant="outline" className="text-xs">Open</Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">6 AM - 6 PM</p>
+                <p className="text-xs text-muted-foreground">6AM - 6PM</p>
               </div>
             </div>
             
-            <div className="mt-6 p-4 bg-background rounded-lg">
-              <h3 className="font-semibold text-foreground mb-2">Market Forecast</h3>
-              <p className="text-sm text-muted-foreground">{selectedCropData.forecast}</p>
+            <div className="p-3 bg-background rounded-lg">
+              <h3 className="font-medium text-foreground mb-1 text-sm">Market Forecast</h3>
+              <p className="text-xs text-muted-foreground">{selectedCropData.forecast}</p>
             </div>
           </Card>
         )}
 
         {/* Profit Calculator */}
-        <Card className="mb-6 p-6 bg-gradient-card">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Calculator className="h-5 w-5 text-primary" />
+        <Card className="p-4 bg-gradient-card">
+          <h2 className="text-base font-medium mb-3 flex items-center gap-2">
+            <Calculator className="h-4 w-4 text-primary" />
             Profit Calculator
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 bg-background rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Quantity</p>
-              <p className="text-2xl font-bold text-foreground">100 kg</p>
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            <div className="p-3 bg-background rounded-lg text-center">
+              <p className="text-xs text-muted-foreground mb-1">Quantity</p>
+              <p className="text-lg font-bold text-foreground">100 kg</p>
             </div>
             
-            <div className="p-4 bg-background rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Expected Revenue</p>
-              <p className="text-2xl font-bold text-green-600">₹4,500</p>
+            <div className="p-3 bg-background rounded-lg text-center">
+              <p className="text-xs text-muted-foreground mb-1">Revenue</p>
+              <p className="text-lg font-bold text-green-600">₹4,500</p>
             </div>
             
-            <div className="p-4 bg-background rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Transport Cost</p>
-              <p className="text-2xl font-bold text-orange-600">₹300</p>
+            <div className="p-3 bg-background rounded-lg text-center">
+              <p className="text-xs text-muted-foreground mb-1">Transport</p>
+              <p className="text-lg font-bold text-orange-600">₹300</p>
             </div>
           </div>
           
-          <div className="mt-4 p-4 bg-primary/10 rounded-lg">
-            <p className="text-sm text-muted-foreground">Net Profit</p>
-            <p className="text-3xl font-bold text-primary">₹4,200</p>
+          <div className="p-3 bg-primary/10 rounded-lg text-center">
+            <p className="text-xs text-muted-foreground">Net Profit</p>
+            <p className="text-2xl font-bold text-primary">₹4,200</p>
           </div>
         </Card>
 
-        {/* Logistics Coordination */}
-        <Card className="mb-6 p-6 bg-gradient-card">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Truck className="h-5 w-5 text-primary" />
-            Logistics Coordination
+        {/* Logistics */}
+        <Card className="p-4 bg-gradient-card">
+          <h2 className="text-base font-medium mb-3 flex items-center gap-2">
+            <Truck className="h-4 w-4 text-primary" />
+            Logistics
           </h2>
           
-          <div className="space-y-4">
-            {logistics.map((item, index) => (
-              <div key={index} className="p-4 bg-background rounded-lg">
+          <div className="space-y-2">
+            {logistics.slice(0, 2).map((item, index) => (
+              <div key={index} className="p-3 bg-background rounded-lg">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <h3 className="font-medium text-foreground">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <h3 className="font-medium text-foreground text-sm">{item.name}</h3>
+                    <p className="text-xs text-muted-foreground flex items-center gap-1">
                       <MapPin className="h-3 w-3" />
                       {item.location}
                     </p>
                   </div>
-                  <Badge variant="outline">{item.crop}</Badge>
+                  <Badge variant="outline" className="text-xs">{item.crop}</Badge>
                 </div>
                 
-                <p className="text-sm text-muted-foreground mb-3">{item.message}</p>
+                <p className="text-xs text-muted-foreground mb-2">{item.message}</p>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-foreground">
-                    Quantity: {item.quantity}
+                  <span className="text-xs font-medium text-foreground">
+                    {item.quantity}
                   </span>
-                  <Button variant="outline" size="sm">
-                    <MessageSquare className="h-4 w-4 mr-1" />
+                  <Button variant="outline" size="sm" className="text-xs h-6">
+                    <MessageSquare className="h-3 w-3 mr-1" />
                     Connect
                   </Button>
                 </div>
               </div>
             ))}
-          </div>
-          
-          <Button variant="default" className="w-full mt-4">
-            <Users className="h-5 w-5 mr-2" />
-            Join Transport Group
-          </Button>
-        </Card>
-
-        {/* Nearby Mandis */}
-        <Card className="p-6 bg-gradient-card">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-primary" />
-            Nearby Mandis
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 bg-background rounded-lg">
-              <h3 className="font-medium text-foreground mb-2">Azadpur Mandi</h3>
-              <p className="text-sm text-muted-foreground mb-2">12 km away • Opens 6 AM</p>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-green-600">Best Price</span>
-                <Button variant="outline" size="sm">View Details</Button>
-              </div>
-            </div>
-            
-            <div className="p-4 bg-background rounded-lg">
-              <h3 className="font-medium text-foreground mb-2">Ghazipur Mandi</h3>
-              <p className="text-sm text-muted-foreground mb-2">18 km away • Opens 5 AM</p>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-orange-600">Good Volume</span>
-                <Button variant="outline" size="sm">View Details</Button>
-              </div>
-            </div>
           </div>
         </Card>
       </div>

@@ -71,6 +71,9 @@ export default {
 					soil: 'hsl(var(--soil-brown))'
 				}
 			},
+			fontFamily: {
+				'sans': ['Poppins', 'sans-serif'],
+			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-earth': 'var(--gradient-earth)',

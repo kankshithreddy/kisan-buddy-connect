@@ -114,81 +114,84 @@ const FarmJournal = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-earth p-6">
-      <div className="max-w-4xl mx-auto">
+    <div className="h-full bg-gradient-earth flex flex-col overflow-hidden">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground mb-2">Farm Journal</h1>
-          <p className="text-muted-foreground">Automated logs and farm activity tracking</p>
+        <div className="text-center">
+          <h1 className="text-xl font-semibold text-foreground">Farm Journal</h1>
+          <p className="text-muted-foreground text-sm">Automated logs and farm activity tracking</p>
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <Card className="p-4 bg-gradient-card text-center">
-            <div className="text-2xl font-bold text-primary mb-1">{stats.totalEntries}</div>
-            <p className="text-sm text-muted-foreground">Total Entries</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <Card className="p-3 bg-gradient-card text-center">
+            <div className="text-xl font-bold text-primary mb-1">{stats.totalEntries}</div>
+            <p className="text-xs text-muted-foreground">Total</p>
           </Card>
           
-          <Card className="p-4 bg-gradient-card text-center">
-            <div className="text-2xl font-bold text-red-600 mb-1">{stats.pestIssues}</div>
-            <p className="text-sm text-muted-foreground">Pest Issues</p>
+          <Card className="p-3 bg-gradient-card text-center">
+            <div className="text-xl font-bold text-red-600 mb-1">{stats.pestIssues}</div>
+            <p className="text-xs text-muted-foreground">Pests</p>
           </Card>
           
-          <Card className="p-4 bg-gradient-card text-center">
-            <div className="text-2xl font-bold text-blue-600 mb-1">{stats.weatherEvents}</div>
-            <p className="text-sm text-muted-foreground">Weather Events</p>
+          <Card className="p-3 bg-gradient-card text-center">
+            <div className="text-xl font-bold text-blue-600 mb-1">{stats.weatherEvents}</div>
+            <p className="text-xs text-muted-foreground">Weather</p>
           </Card>
           
-          <Card className="p-4 bg-gradient-card text-center">
-            <div className="text-2xl font-bold text-green-600 mb-1">{stats.irrigationCycles}</div>
-            <p className="text-sm text-muted-foreground">Irrigation Cycles</p>
+          <Card className="p-3 bg-gradient-card text-center">
+            <div className="text-xl font-bold text-green-600 mb-1">{stats.irrigationCycles}</div>
+            <p className="text-xs text-muted-foreground">Irrigation</p>
           </Card>
         </div>
 
         {/* Controls */}
-        <Card className="mb-6 p-4 bg-gradient-card">
-          <div className="flex flex-wrap gap-3 items-center justify-between">
+        <Card className="p-3 bg-gradient-card">
+          <div className="flex justify-between items-center">
             <div className="flex gap-2">
               <Button
                 variant={viewMode === "timeline" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("timeline")}
+                className="text-xs"
               >
-                <Calendar className="h-4 w-4 mr-1" />
+                <Calendar className="h-3 w-3 mr-1" />
                 Timeline
               </Button>
               <Button
                 variant={viewMode === "graph" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("graph")}
+                className="text-xs"
               >
-                <BarChart3 className="h-4 w-4 mr-1" />
+                <BarChart3 className="h-3 w-3 mr-1" />
                 Trends
               </Button>
             </div>
             
-            <Button variant="outline" size="sm">
-              <Plus className="h-4 w-4 mr-1" />
-              Add Entry
+            <Button variant="outline" size="sm" className="text-xs">
+              <Plus className="h-3 w-3 mr-1" />
+              Add
             </Button>
           </div>
         </Card>
 
         {/* Filters */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-            <Filter className="h-5 w-5 text-primary" />
-            Filter by Type
+        <div>
+          <h2 className="text-base font-medium mb-2 flex items-center gap-2">
+            <Filter className="h-4 w-4 text-primary" />
+            Filter
           </h2>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1">
             {filters.map((filter) => (
               <Button
                 key={filter.id}
                 variant={selectedFilter === filter.id ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedFilter(filter.id)}
+                className="text-xs"
               >
-                <filter.icon className="h-4 w-4 mr-1" />
+                <filter.icon className="h-3 w-3 mr-1" />
                 {filter.label}
               </Button>
             ))}
@@ -197,47 +200,47 @@ const FarmJournal = () => {
 
         {/* Timeline View */}
         {viewMode === "timeline" && (
-          <div className="space-y-4">
-            {filteredEntries.map((entry) => (
-              <Card key={entry.id} className="p-6 bg-gradient-card">
-                <div className="flex items-start gap-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+          <div className="space-y-3">
+            {filteredEntries.slice(0, 3).map((entry) => (
+              <Card key={entry.id} className="p-4 bg-gradient-card">
+                <div className="flex items-start gap-3">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                     entry.type === 'pest' ? 'bg-red-500/10' :
                     entry.type === 'weather' ? 'bg-blue-500/10' :
                     entry.type === 'irrigation' ? 'bg-green-500/10' :
                     'bg-yellow-500/10'
                   }`}>
-                    <entry.icon className={`h-6 w-6 ${getTypeColor(entry.type)}`} />
+                    <entry.icon className={`h-4 w-4 ${getTypeColor(entry.type)}`} />
                   </div>
                   
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-semibold text-foreground">{entry.title}</h3>
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="font-medium text-foreground text-sm">{entry.title}</h3>
+                      <div className="flex items-center gap-1">
                         {entry.automated && (
                           <Badge variant="secondary" className="text-xs">Auto</Badge>
                         )}
-                        <Badge variant={getSeverityColor(entry.severity) as any}>
+                        <Badge variant={getSeverityColor(entry.severity) as any} className="text-xs">
                           {entry.severity}
                         </Badge>
                       </div>
                     </div>
                     
-                    <p className="text-sm text-muted-foreground mb-2">{entry.description}</p>
+                    <p className="text-xs text-muted-foreground mb-2">{entry.description}</p>
                     
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        {entry.date} at {entry.time}
+                        {entry.date}
                       </span>
                       <span>{entry.location}</span>
                     </div>
                     
                     <div>
-                      <h4 className="font-medium text-foreground mb-1">Actions Taken:</h4>
-                      <ul className="text-sm space-y-1">
-                        {entry.actions.map((action, index) => (
-                          <li key={index} className="flex items-center gap-2 text-muted-foreground">
+                      <h4 className="font-medium text-foreground mb-1 text-xs">Actions:</h4>
+                      <ul className="text-xs space-y-1">
+                        {entry.actions.slice(0, 2).map((action, index) => (
+                          <li key={index} className="flex items-center gap-1 text-muted-foreground">
                             <div className="w-1 h-1 bg-primary rounded-full"></div>
                             {action}
                           </li>
@@ -253,34 +256,33 @@ const FarmJournal = () => {
 
         {/* Graph View */}
         {viewMode === "graph" && (
-          <Card className="p-6 bg-gradient-card">
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-primary" />
+          <Card className="p-4 bg-gradient-card">
+            <h2 className="text-base font-medium mb-3 flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-primary" />
               Activity Trends
             </h2>
             
-            <div className="h-64 bg-background rounded-lg flex items-center justify-center">
+            <div className="h-32 bg-background rounded-lg flex items-center justify-center">
               <div className="text-center text-muted-foreground">
-                <BarChart3 className="h-12 w-12 mx-auto mb-2" />
-                <p>Farm activity trends would be displayed here</p>
-                <p className="text-sm">Charts showing pest frequency, weather patterns, and irrigation cycles</p>
+                <BarChart3 className="h-8 w-8 mx-auto mb-2" />
+                <p className="text-xs">Farm activity trends</p>
               </div>
             </div>
             
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-3 bg-background rounded-lg">
-                <div className="text-lg font-bold text-red-600 mb-1">2.3/week</div>
-                <p className="text-sm text-muted-foreground">Avg Pest Issues</p>
+            <div className="mt-3 grid grid-cols-3 gap-2">
+              <div className="text-center p-2 bg-background rounded-lg">
+                <div className="text-sm font-bold text-red-600 mb-1">2.3</div>
+                <p className="text-xs text-muted-foreground">Pest/week</p>
               </div>
               
-              <div className="text-center p-3 bg-background rounded-lg">
-                <div className="text-lg font-bold text-blue-600 mb-1">15mm/week</div>
-                <p className="text-sm text-muted-foreground">Avg Rainfall</p>
+              <div className="text-center p-2 bg-background rounded-lg">
+                <div className="text-sm font-bold text-blue-600 mb-1">15mm</div>
+                <p className="text-xs text-muted-foreground">Rain/week</p>
               </div>
               
-              <div className="text-center p-3 bg-background rounded-lg">
-                <div className="text-lg font-bold text-green-600 mb-1">14h/week</div>
-                <p className="text-sm text-muted-foreground">Irrigation Time</p>
+              <div className="text-center p-2 bg-background rounded-lg">
+                <div className="text-sm font-bold text-green-600 mb-1">14h</div>
+                <p className="text-xs text-muted-foreground">Irrigation/week</p>
               </div>
             </div>
           </Card>

@@ -26,7 +26,7 @@ const Index = () => {
     { id: "mandi", label: "Mandi", icon: TrendingUp },
     { id: "community", label: "Community", icon: Users },
     { id: "schemes", label: "Schemes", icon: FileText },
-    { id: "alerts", label: "Alerts", icon: Bell },
+    { id: "alerts", label: "Journal", icon: Bell },
   ];
 
   const renderScreen = () => {
@@ -34,28 +34,31 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Main Content */}
-      <div className="pb-20">
-        {renderScreen()}
+    <div className="h-screen bg-background flex flex-col">
+      {/* Top Navigation */}
+      <div className="bg-card border-b border-border shadow-soft flex-shrink-0">
+        <div className="flex items-center justify-between px-4 py-2">
+          <h1 className="text-lg font-semibold text-foreground">Kisan Ally</h1>
+          <div className="flex gap-1">
+            {navigationItems.map((item) => (
+              <Button
+                key={item.id}
+                variant={activeScreen === item.id ? "default" : "ghost"}
+                size="sm"
+                className="flex items-center gap-2 text-xs px-2 py-1 h-8"
+                onClick={() => setActiveScreen(item.id)}
+              >
+                <item.icon className="h-4 w-4" />
+                <span className="hidden sm:inline">{item.label}</span>
+              </Button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-soft">
-        <div className="grid grid-cols-6 gap-1 p-2">
-          {navigationItems.map((item) => (
-            <Button
-              key={item.id}
-              variant={activeScreen === item.id ? "default" : "ghost"}
-              size="sm"
-              className="flex-col h-16 text-xs"
-              onClick={() => setActiveScreen(item.id)}
-            >
-              <item.icon className="h-5 w-5 mb-1" />
-              {item.label}
-            </Button>
-          ))}
-        </div>
+      {/* Main Content */}
+      <div className="flex-1 overflow-hidden">
+        {renderScreen()}
       </div>
     </div>
   );

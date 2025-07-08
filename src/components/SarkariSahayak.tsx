@@ -103,151 +103,113 @@ const SarkariSahayak = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-earth p-6">
-      <div className="max-w-4xl mx-auto">
+    <div className="h-full bg-gradient-earth flex flex-col overflow-hidden">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground mb-2">Sarkari Sahayak</h1>
-          <p className="text-muted-foreground">Government scheme navigator and support</p>
+        <div className="text-center">
+          <h1 className="text-xl font-semibold text-foreground">Sarkari Sahayak</h1>
+          <p className="text-muted-foreground text-sm">Government scheme navigator and support</p>
         </div>
 
         {/* Voice Input Section */}
-        <Card className="mb-6 p-6 bg-gradient-card">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Mic className="h-5 w-5 text-primary" />
-            Ask About Government Schemes
+        <Card className="p-4 bg-gradient-card">
+          <h2 className="text-base font-medium mb-3 flex items-center gap-2">
+            <Mic className="h-4 w-4 text-primary" />
+            Ask About Schemes
           </h2>
           
-          <div className="text-center mb-4">
+          <div className="text-center mb-3">
             <Button
               variant="mic"
               size="mic"
               onClick={handleVoiceInput}
-              className={`mx-auto ${isListening ? 'animate-pulse' : ''}`}
+              className={`mx-auto ${isListening ? 'animate-pulse' : ''} h-12 w-12`}
             >
-              <Mic className="h-8 w-8" />
+              <Mic className="h-6 w-6" />
             </Button>
-            <p className="mt-3 text-muted-foreground">
-              {isListening ? "Listening to your question..." : "Ask about subsidies, schemes, or eligibility"}
+            <p className="mt-2 text-muted-foreground text-sm">
+              {isListening ? "Listening..." : "Ask about subsidies"}
             </p>
           </div>
           
           {/* Quick Questions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-2">
             <Button 
               variant="outline" 
-              className="text-left p-4 h-auto"
+              className="text-left p-3 h-auto text-xs"
               onClick={() => handleSendMessage("What are the loan schemes available?")}
             >
-              <MessageSquare className="h-4 w-4 mr-2 flex-shrink-0" />
-              <span className="text-sm">What are the loan schemes available?</span>
+              <MessageSquare className="h-3 w-3 mr-2 flex-shrink-0" />
+              <span>Loan schemes available?</span>
             </Button>
             
             <Button 
               variant="outline" 
-              className="text-left p-4 h-auto"
+              className="text-left p-3 h-auto text-xs"
               onClick={() => handleSendMessage("How to apply for crop insurance?")}
             >
-              <MessageSquare className="h-4 w-4 mr-2 flex-shrink-0" />
-              <span className="text-sm">How to apply for crop insurance?</span>
+              <MessageSquare className="h-3 w-3 mr-2 flex-shrink-0" />
+              <span>Crop insurance process?</span>
             </Button>
           </div>
         </Card>
 
-        {/* Chat Interface */}
-        <Card className="mb-6 p-6 bg-gradient-card">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <MessageSquare className="h-5 w-5 text-primary" />
-            Chat Assistant
-          </h2>
-          
-          <div className="space-y-4 max-h-64 overflow-y-auto">
-            {chatHistory.map((chat, index) => (
-              <div 
-                key={index} 
-                className={`flex ${chat.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div className={`max-w-[80%] rounded-lg p-3 ${
-                  chat.type === 'user' 
-                    ? 'bg-primary text-primary-foreground' 
-                    : 'bg-background text-foreground'
-                }`}>
-                  <p className="text-sm">{chat.message}</p>
-                  <p className="text-xs opacity-70 mt-1">{chat.timestamp}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
         {/* Available Schemes */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <FileText className="h-5 w-5 text-primary" />
+        <div>
+          <h2 className="text-base font-medium mb-3 flex items-center gap-2">
+            <FileText className="h-4 w-4 text-primary" />
             Available Schemes
           </h2>
           
-          <div className="space-y-4">
-            {schemes.map((scheme, index) => {
+          <div className="space-y-3">
+            {schemes.slice(0, 2).map((scheme, index) => {
               const StatusIcon = getStatusIcon(scheme.status);
               return (
-                <Card key={index} className="p-6 bg-gradient-card">
-                  <div className="flex justify-between items-start mb-4">
+                <Card key={index} className="p-4 bg-gradient-card">
+                  <div className="flex justify-between items-start mb-3">
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{scheme.title}</h3>
-                      <p className="text-sm text-muted-foreground">{scheme.subtitle}</p>
+                      <h3 className="font-medium text-foreground text-sm mb-1">{scheme.title}</h3>
+                      <p className="text-xs text-muted-foreground">{scheme.subtitle}</p>
                     </div>
-                    <Badge variant={getStatusColor(scheme.status) as any}>
+                    <Badge variant={getStatusColor(scheme.status) as any} className="text-xs">
                       <StatusIcon className="h-3 w-3 mr-1" />
                       {scheme.status}
                     </Badge>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="text-center p-3 bg-background rounded-lg">
+                  <div className="grid grid-cols-3 gap-2 mb-3">
+                    <div className="text-center p-2 bg-background rounded-lg">
                       <div className="flex items-center justify-center gap-1 mb-1">
-                        <IndianRupee className="h-4 w-4 text-primary" />
-                        <span className="font-bold text-primary">{scheme.amount}</span>
+                        <IndianRupee className="h-3 w-3 text-primary" />
+                        <span className="font-bold text-primary text-sm">{scheme.amount}</span>
                       </div>
-                      <p className="text-xs text-muted-foreground">Maximum Amount</p>
+                      <p className="text-xs text-muted-foreground">Amount</p>
                     </div>
                     
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <div className="font-bold text-green-600 mb-1">{scheme.subsidy}</div>
+                    <div className="text-center p-2 bg-background rounded-lg">
+                      <div className="font-bold text-green-600 mb-1 text-sm">{scheme.subsidy}</div>
                       <p className="text-xs text-muted-foreground">Subsidy</p>
                     </div>
                     
-                    <div className="text-center p-3 bg-background rounded-lg">
+                    <div className="text-center p-2 bg-background rounded-lg">
                       <div className="flex items-center justify-center gap-1 mb-1">
-                        <Calendar className="h-4 w-4 text-orange-600" />
-                        <span className="font-bold text-orange-600 text-sm">{scheme.deadline}</span>
+                        <Calendar className="h-3 w-3 text-orange-600" />
+                        <span className="font-bold text-orange-600 text-xs">{scheme.deadline}</span>
                       </div>
                       <p className="text-xs text-muted-foreground">Deadline</p>
                     </div>
                   </div>
                   
-                  <p className="text-sm text-muted-foreground mb-4">{scheme.description}</p>
+                  <p className="text-xs text-muted-foreground mb-3">{scheme.description}</p>
                   
-                  <div className="mb-4">
-                    <h4 className="font-medium text-foreground mb-2">Required Documents:</h4>
-                    <div className="grid grid-cols-2 gap-2">
-                      {scheme.requirements.map((req, reqIndex) => (
-                        <div key={reqIndex} className="flex items-center gap-2 text-sm">
-                          <CheckCircle className="h-3 w-3 text-green-500" />
-                          <span className="text-muted-foreground">{req}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-3">
-                    <Button variant="default" size="sm" className="flex-1">
-                      <ExternalLink className="h-4 w-4 mr-1" />
-                      Apply Now
+                  <div className="flex gap-2">
+                    <Button variant="default" size="sm" className="flex-1 text-xs">
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      Apply
                     </Button>
-                    <Button variant="outline" size="sm">
-                      <MessageSquare className="h-4 w-4 mr-1" />
-                      Get Help
+                    <Button variant="outline" size="sm" className="text-xs">
+                      <MessageSquare className="h-3 w-3 mr-1" />
+                      Help
                     </Button>
                   </div>
                 </Card>
@@ -256,38 +218,38 @@ const SarkariSahayak = () => {
           </div>
         </div>
 
-        {/* Application Status */}
-        <Card className="p-6 bg-gradient-card">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <User className="h-5 w-5 text-primary" />
+        {/* My Applications */}
+        <Card className="p-4 bg-gradient-card">
+          <h2 className="text-base font-medium mb-3 flex items-center gap-2">
+            <User className="h-4 w-4 text-primary" />
             My Applications
           </h2>
           
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-background rounded-lg">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
+          <div className="space-y-2">
+            <div className="flex items-center justify-between p-2 bg-background rounded-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center">
+                  <CheckCircle className="h-3 w-3 text-green-500" />
                 </div>
                 <div>
-                  <p className="font-medium text-foreground">PM-KISAN</p>
-                  <p className="text-sm text-muted-foreground">Application approved</p>
+                  <p className="font-medium text-foreground text-sm">PM-KISAN</p>
+                  <p className="text-xs text-muted-foreground">Approved</p>
                 </div>
               </div>
-              <Badge variant="secondary">Active</Badge>
+              <Badge variant="secondary" className="text-xs">Active</Badge>
             </div>
             
-            <div className="flex items-center justify-between p-3 bg-background rounded-lg">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-orange-500/10 rounded-full flex items-center justify-center">
-                  <Calendar className="h-4 w-4 text-orange-500" />
+            <div className="flex items-center justify-between p-2 bg-background rounded-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-orange-500/10 rounded-full flex items-center justify-center">
+                  <Calendar className="h-3 w-3 text-orange-500" />
                 </div>
                 <div>
-                  <p className="font-medium text-foreground">Drip Irrigation Subsidy</p>
-                  <p className="text-sm text-muted-foreground">Under review</p>
+                  <p className="font-medium text-foreground text-sm">Drip Irrigation</p>
+                  <p className="text-xs text-muted-foreground">Under review</p>
                 </div>
               </div>
-              <Badge variant="outline">Pending</Badge>
+              <Badge variant="outline" className="text-xs">Pending</Badge>
             </div>
           </div>
         </Card>
