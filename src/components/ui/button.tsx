@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-smooth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -18,12 +18,20 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        // Agriculture-specific variants
+        mic: "bg-gradient-primary text-primary-foreground hover:scale-105 shadow-mic transition-bounce rounded-full",
+        earth: "bg-earth-brown text-white hover:bg-earth-brown/90 shadow-soft",
+        harvest: "bg-earth-gold text-earth-brown hover:bg-earth-gold/90 shadow-soft",
+        leaf: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-soft",
+        action: "bg-gradient-card text-foreground hover:shadow-card border border-border",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
+        mic: "h-20 w-20 rounded-full",
+        card: "h-16 px-6 py-4 rounded-xl",
       },
     },
     defaultVariants: {
