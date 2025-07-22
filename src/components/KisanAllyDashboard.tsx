@@ -17,14 +17,18 @@ import {
 import farmHero from "@/assets/farm-hero.jpg";
 import farmerTech from "@/assets/farmer-tech.jpg";
 import cropHealth from "@/assets/crop-health.jpg";
+import ConversationalAlly from "./ConversationalAlly";
 
 const KisanAllyDashboard = () => {
-  const [isListening, setIsListening] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   
   const handleVoiceInput = () => {
-    setIsListening(!isListening);
-    // Voice input logic would go here
+    setShowChat(true);
   };
+
+  if (showChat) {
+    return <ConversationalAlly onClose={() => setShowChat(false)} />;
+  }
 
   const quickActions = [
     { icon: Camera, label: "Diagnose Crop", color: "leaf", subtitle: "Image Analysis" },
@@ -74,12 +78,12 @@ const KisanAllyDashboard = () => {
             variant="mic"
             size="mic"
             onClick={handleVoiceInput}
-            className={`mx-auto ${isListening ? 'animate-pulse' : ''}`}
+            className="mx-auto"
           >
             <Mic className="h-6 w-6" />
           </Button>
           <p className="mt-2 text-muted-foreground text-sm">
-            {isListening ? "Listening..." : "Ask Ally anything..."}
+            Tap to start chatting with Ally
           </p>
         </div>
 
