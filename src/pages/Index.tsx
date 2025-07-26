@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import KisanAllyDashboard from "@/components/KisanAllyDashboard";
-import DiagnosticLens from "@/components/DiagnosticLens";
-import CommunityMandi from "@/components/CommunityMandi";
-import DigitalCoop from "@/components/DigitalCoop";
-import SarkariSahayak from "@/components/SarkariSahayak";
-import FarmJournal from "@/components/FarmJournal";
+// import DiagnosticLens from "@/components/DiagnosticLens";
+// import CommunityMandi from "@/components/CommunityMandi";
+// import DigitalCoop from "@/components/DigitalCoop";
+// import SarkariSahayak from "@/components/SarkariSahayak";
+// import FarmJournal from "@/components/FarmJournal";
 import { Camera, Home, TrendingUp, Users, FileText, Bell } from "lucide-react";
 
 const Index = () => {
@@ -13,20 +13,20 @@ const Index = () => {
 
   const screens = {
     dashboard: <KisanAllyDashboard />,
-    diagnostic: <DiagnosticLens />,
-    mandi: <CommunityMandi />,
-    community: <DigitalCoop />,
-    schemes: <SarkariSahayak />,
-    alerts: <FarmJournal />,
+    // diagnostic: <DiagnosticLens />,
+    // mandi: <CommunityMandi />,
+    // community: <DigitalCoop />,
+    // schemes: <SarkariSahayak />,
+    // alerts: <FarmJournal />,
   };
 
   const navigationItems = [
     { id: "dashboard", label: "Home", icon: Home },
-    { id: "diagnostic", label: "Diagnose", icon: Camera },
-    { id: "mandi", label: "Mandi", icon: TrendingUp },
-    { id: "community", label: "Community", icon: Users },
-    { id: "schemes", label: "Schemes", icon: FileText },
-    { id: "alerts", label: "Journal", icon: Bell },
+    // { id: "diagnostic", label: "Diagnose", icon: Camera },
+    // { id: "mandi", label: "Mandi", icon: TrendingUp },
+    // { id: "community", label: "Community", icon: Users },
+    // { id: "schemes", label: "Schemes", icon: FileText },
+    // { id: "alerts", label: "Journal", icon: Bell },
   ];
 
   const renderScreen = () => {
